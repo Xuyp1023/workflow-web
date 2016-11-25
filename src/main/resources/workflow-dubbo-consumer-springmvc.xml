@@ -11,6 +11,6 @@
 
 	<!-- 扫描dubbo注解 -->
 	<dubbo:annotation
-		package="" />
+		package="com.betterjr.modules.workflow" />
 
 </beans>
