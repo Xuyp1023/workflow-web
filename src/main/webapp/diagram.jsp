@@ -42,8 +42,8 @@
 		<script type="text/javascript">
 		$.ajax({
 				type:'GET',
-				url:"${ctx}/Platform/workflow/webFindFlowJson",
-				data:"processId=${processId}&businessId=${businessId}",
+				url:"${ctx}/WorkFlow/webFindFlowJson",
+				data:"processId=${processId}&businessId=${businessId}&orderId=${orderId}",
 				dataType:'json',
 				async: false,
 				globle:false,

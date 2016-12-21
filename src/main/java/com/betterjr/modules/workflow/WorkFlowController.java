@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,16 +40,17 @@ public class WorkFlowController {
     public @ResponseBody String queryCurrentTask(final HttpServletRequest request, final int flag, final int pageNum,
             final int pageSize) {
         logger.debug("查询待办任务");
-        return exec(() -> workFlowService.webQueryCurrentTask(pageNum, pageSize), "查询待办任务失败", logger);
+        final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
+        return exec(() -> workFlowService.webQueryCurrentTask(pageNum, pageSize, param), "查询待办任务失败", logger);
     }
 
     @RequestMapping(value = "/queryHistoryTask", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryHistoryTask(final HttpServletRequest request, final int flag, final int pageNum,
             final int pageSize) {
         logger.debug("查询已办任务");
-        return exec(() -> workFlowService.webQueryHistoryTask(pageNum, pageSize), "查询已办任务失败", logger);
+        final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
+        return exec(() -> workFlowService.webQueryHistoryTask(pageNum, pageSize, param), "查询已办任务失败", logger);
     }
-
 
     @RequestMapping(value = "/passWorkFlow", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String passWorkFlow(final HttpServletRequest request, final String taskId) {
@@ -96,5 +98,29 @@ public class WorkFlowController {
     public @ResponseBody String queryRejectNode(final HttpServletRequest request, final String taskId) {
         logger.debug("查询驳回列表");
         return exec(() -> workFlowService.webQueryRejectNode(taskId), "查询驳回列表失败", logger);
+    }
+
+    /**
+     * 显示流程图
+     */
+    @RequestMapping(value = "/webFindFlowJson",method={RequestMethod.GET,RequestMethod.POST})
+    public @ResponseBody String webFindFlowJson(final String orderId) {
+        logger.info("显示流程图入参 "+","+orderId);
+        return exec(() -> workFlowService.webFindWorkFlowJson(orderId), "查询流程图失败", logger);
+    }
+
+    /**
+     * 展示流程图页面
+     * @param model
+     * @param processId
+     * @param businessId
+     * @return
+     */
+    @RequestMapping(value = "/displayDiagram")
+    public String displayDiagram(final Model model, final String processId, final String businessId, final String orderId){
+        model.addAttribute("processId", processId);
+        model.addAttribute("businessId", businessId);
+        model.addAttribute("orderId", orderId);
+        return "/diagram.jsp";
     }
 }
