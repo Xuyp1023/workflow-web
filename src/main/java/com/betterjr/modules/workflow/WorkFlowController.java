@@ -112,9 +112,31 @@ public class WorkFlowController {
      * 显示流程图
      */
     @RequestMapping(value = "/webFindFlowJson",method={RequestMethod.GET,RequestMethod.POST})
-    public @ResponseBody String webFindFlowJson(final String orderId) {
-        logger.info("显示流程图入参 "+","+orderId);
-        return exec(() -> workFlowService.webFindWorkFlowJson(orderId), "查询流程图失败", logger);
+    public @ResponseBody String webFindFlowJson(final HttpServletRequest request) {
+        final String processId = request.getParameter("processId");
+        final String orderId = request.getParameter("orderId");
+        logger.info("显示流程图入参 processId="+ processId +", orderId="+orderId);
+        return exec(() -> workFlowService.webFindWorkFlowJson(processId, orderId), "查询流程图失败", logger);
+    }
+
+    /**
+     * 更改操作员
+     */
+    @RequestMapping(value = "/webChangeApprover",method={RequestMethod.GET,RequestMethod.POST})
+    public @ResponseBody String webChangeApprover(final HttpServletRequest request, final String taskId, final Long operId) {
+        logger.info("更改操作员入参 taskId="+ taskId +", operId="+operId);
+        return exec(() -> workFlowService.webChangeApprover(taskId, operId), "更改操作员失败", logger);
+    }
+
+    /**
+     * 显示活动节点  TODO  TODO  TODO
+     */
+    @RequestMapping(value = "/webFindTipsJson",method={RequestMethod.GET,RequestMethod.POST})
+    public @ResponseBody String webFindTipsJson(final HttpServletRequest request) {
+        final String processId = request.getParameter("processId");
+        final String orderId = request.getParameter("orderId");
+        logger.info("显示流程图入参 processId="+ processId +", orderId="+orderId);
+        return exec(() -> workFlowService.webFindWorkFlowJson(processId, orderId), "查询流程图失败", logger);
     }
 
     /**
