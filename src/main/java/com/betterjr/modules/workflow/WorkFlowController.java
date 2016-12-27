@@ -96,10 +96,10 @@ public class WorkFlowController {
     }
 
     @RequestMapping(value = "/queryAuditRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryAuditRecord(final HttpServletRequest request, final String taskId, final int flag, final int pageNum,
+    public @ResponseBody String queryAuditRecord(final HttpServletRequest request, final String businessId, final int flag, final int pageNum,
             final int pageSize) {
         logger.debug("查询审批记录");
-        return exec(() -> workFlowService.webQueryAudit(taskId, flag, pageNum, pageSize), "查询审批记录失败", logger);
+        return exec(() -> workFlowService.webQueryAudit(businessId, flag, pageNum, pageSize), "查询审批记录失败", logger);
     }
 
     @RequestMapping(value = "/queryRejectNode", method = RequestMethod.POST, produces = "application/json")
