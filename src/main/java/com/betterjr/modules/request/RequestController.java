@@ -45,7 +45,7 @@ public class RequestController {
 
 			// 启动流程
 			long factorNo = Long.parseLong(anContext.get("factorNo").toString());
-			WorkFlowInput workFlowInput = new WorkFlowInput(UserUtils.getOperatorInfo().getId(), "资金方-供应商融资审批流程",
+			WorkFlowInput workFlowInput = new WorkFlowInput(Long.parseLong(anContext.get("custNo").toString()), UserUtils.getOperatorInfo().getId(), "资金方-供应商融资审批流程",
 					factorNo, anContext.get("requestNo").toString(),
 					WorkFlowBusinessType.SUPPLIER_FINANCING_REQUEST);
 			workFlowInput.setCoreCustNo(Long.parseLong(anContext.get("coreCustNo").toString()));
@@ -68,7 +68,7 @@ public class RequestController {
 
 			// 启动流程
 			long factorNo = Long.parseLong(anContext.get("factorNo").toString());
-			WorkFlowInput workFlowInput = new WorkFlowInput(UserUtils.getOperatorInfo().getId(), "资金方-经销商融资审批流程",
+			WorkFlowInput workFlowInput = new WorkFlowInput(Long.parseLong(anContext.get("custNo").toString()), UserUtils.getOperatorInfo().getId(), "资金方-经销商融资审批流程",
 					factorNo, anContext.get("requestNo").toString(),
 					WorkFlowBusinessType.SELLER_FINANCING_REQUEST);
 			workFlowInput.setCoreCustNo(Long.parseLong(anContext.get("coreCustNo").toString()));
