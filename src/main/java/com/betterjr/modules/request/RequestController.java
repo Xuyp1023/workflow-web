@@ -39,19 +39,21 @@ public class RequestController {
 	@RequestMapping(value = "/supplyRequest", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String supplyRequest(final HttpServletRequest request) {
 		try {
+			System.out.println("RequestController.supplyRequest()");;
 			Map<String, Object> anContext = Servlets.getParametersStartingWith(request, "");
 			anContext = scfSupplyFlowService.application(anContext);
 
 			// 启动流程
+			long factorNo = Long.parseLong(anContext.get("factorNo").toString());
 			WorkFlowInput workFlowInput = new WorkFlowInput(UserUtils.getOperatorInfo().getId(), "资金方-供应商融资审批流程",
-					(Long) anContext.get("factorNo"), anContext.get("requestNo").toString(),
+					factorNo, anContext.get("requestNo").toString(),
 					WorkFlowBusinessType.SUPPLIER_FINANCING_REQUEST);
-			workFlowInput.setCoreCustNo((Long) anContext.get("coreCustNo"));
-			workFlowInput.setFactorCustNo((Long) anContext.get("factorNo"));
-			workFlowInput.setSupplierCustNo((Long) anContext.get("custNo"));
-			workFlowInput.addParam("balance", (BigDecimal) anContext.get("balance"));
+			workFlowInput.setCoreCustNo(Long.parseLong(anContext.get("coreCustNo").toString()));
+			workFlowInput.setFactorCustNo(factorNo);
+			workFlowInput.setSupplierCustNo(Long.parseLong(anContext.get("custNo").toString()));
+			workFlowInput.addParam("balance", new BigDecimal(anContext.get("balance").toString()));
 			workFlowService.startWorkFlow(workFlowInput);
-			return AjaxObject.newOk(request).toJson();
+			return AjaxObject.newOk("申请成功，申请编号：" + anContext.get("requestNo")).toJson();
 		} catch (Exception ex) {
 			logger.error("添加融资申请:", ex);
 			return AjaxObject.newError(ex.getMessage()).toJson();
@@ -65,15 +67,16 @@ public class RequestController {
 			anContext = scfSellerFlowService.application(anContext);
 
 			// 启动流程
+			long factorNo = Long.parseLong(anContext.get("factorNo").toString());
 			WorkFlowInput workFlowInput = new WorkFlowInput(UserUtils.getOperatorInfo().getId(), "资金方-经销商融资审批流程",
-					(Long) anContext.get("factorNo"), anContext.get("requestNo").toString(),
+					factorNo, anContext.get("requestNo").toString(),
 					WorkFlowBusinessType.SELLER_FINANCING_REQUEST);
-			workFlowInput.setCoreCustNo((Long) anContext.get("coreCustNo"));
-			workFlowInput.setFactorCustNo((Long) anContext.get("factorNo"));
-			workFlowInput.setSellerCustNo((Long) anContext.get("custNo"));
-			workFlowInput.addParam("balance", (BigDecimal) anContext.get("balance"));
+			workFlowInput.setCoreCustNo(Long.parseLong(anContext.get("coreCustNo").toString()));
+			workFlowInput.setFactorCustNo(factorNo);
+			workFlowInput.setSellerCustNo(Long.parseLong(anContext.get("custNo").toString()));
+			workFlowInput.addParam("balance",  new BigDecimal(anContext.get("balance").toString()));
 			workFlowService.startWorkFlow(workFlowInput);
-			return AjaxObject.newOk(request).toJson();
+			return AjaxObject.newOk("申请成功，申请编号：" + anContext.get("requestNo")).toJson();
 		} catch (Exception ex) {
 			logger.error("添加融资申请:", ex);
 			return AjaxObject.newError(ex.getMessage()).toJson();
