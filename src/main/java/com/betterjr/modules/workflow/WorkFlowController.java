@@ -60,6 +60,13 @@ public class WorkFlowController {
         return exec(() -> workFlowService.webQueryMonitorTask(custNo, pageNum, pageSize, param), "查询监控任务失败", logger);
     }
 
+    @RequestMapping(value = "/startWorkFlow", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String startWorkFlow(final HttpServletRequest request, final String workFlowName, final Long custNo) {
+        logger.debug("启动流程 workFlowName=" + workFlowName + "  custNo=" + custNo);
+        final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
+        return exec(() -> workFlowService.webStartWorkFlow(workFlowName, custNo, param), "启动流程失败", logger);
+    }
+
     @RequestMapping(value = "/passWorkFlow", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String passWorkFlow(final HttpServletRequest request, final String taskId) {
         logger.debug("审批通过任务");
