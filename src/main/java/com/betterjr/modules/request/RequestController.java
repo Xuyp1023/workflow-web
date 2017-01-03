@@ -39,7 +39,6 @@ public class RequestController {
 	@RequestMapping(value = "/supplyRequest", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody String supplyRequest(final HttpServletRequest request) {
 		try {
-			System.out.println("RequestController.supplyRequest()");;
 			Map<String, Object> anContext = Servlets.getParametersStartingWith(request, "");
 			anContext = scfSupplyFlowService.application(anContext);
 
