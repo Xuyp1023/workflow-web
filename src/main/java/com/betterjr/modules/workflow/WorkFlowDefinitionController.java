@@ -45,9 +45,16 @@ public class WorkFlowDefinitionController {
     @RequestMapping(value = "/queryWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryWorkFlowBase(final HttpServletRequest request, final long custNo, final int flag, final int pageNum,
             final int pageSize) {
-        logger.info("查询公司拥有流程");
+        logger.info("查询公司拥有流程 custNo=" + custNo);
 
         return exec(() -> workFlowDefinitionService.webQueryWorkFlowBase(custNo, flag, pageNum, pageSize), "查询流程定义列表失败！", logger);
+    }
+
+    @RequestMapping(value = "/queryHistoryWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryHistoryWorkFlowBase(final HttpServletRequest request, final long custNo, final String workFlowName) {
+        logger.info("查询公司拥有流程 custNo=" + custNo + " workFlowName=" + workFlowName);
+
+        return exec(() -> workFlowDefinitionService.webQueryHistoryWorkFlowBase(custNo, workFlowName), "查询流程定义列表失败！", logger);
     }
 
     @RequestMapping(value = "/findWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
