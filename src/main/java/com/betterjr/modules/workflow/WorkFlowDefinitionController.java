@@ -36,10 +36,10 @@ public class WorkFlowDefinitionController {
     private IWorkFlowDefinitionService workFlowDefinitionService;
 
     @RequestMapping(value = "/queryDefaultWorkFlow", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryDefaultWorkFlow(final HttpServletRequest request) {
-        logger.info("查询基础流程列表成功");
+    public @ResponseBody String queryDefaultWorkFlow(final HttpServletRequest request, final Long custNo) {
+        logger.info("查询基础流程列表 custNo=" + custNo);
 
-        return exec(() -> workFlowDefinitionService.webQueryDefaultWorkFlow(), "查询基础流程列表失败！", logger);
+        return exec(() -> workFlowDefinitionService.webQueryDefaultWorkFlow(custNo), "查询基础流程列表失败！", logger);
     }
 
     @RequestMapping(value = "/queryWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
@@ -98,6 +98,14 @@ public class WorkFlowDefinitionController {
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         return exec(() -> workFlowDefinitionService.webAddWorkFlowBase(param, defaultBaseId, custNo, nickname), "添加流程失败！", logger);
     }
+
+    @RequestMapping(value = "/addNewVersionWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String addNewVersionWorkFlowBase(final HttpServletRequest request, final String workFlowName, final long custNo) {
+        logger.info("添加流程");
+        final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
+        return exec(() -> workFlowDefinitionService.webAddNewVersionWorkFlowBase(workFlowName, custNo), "添加流程失败！", logger);
+    }
+
 
     @RequestMapping(value = "/saveWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String saveWorkFlowBase(final HttpServletRequest request, final long baseId, final String nickname) {
