@@ -49,7 +49,7 @@
 				<table class="properties_all" align="center" border="0"
 					cellpadding="0" cellspacing="0" style="margin-top: 0px">
 					<div id="snakerflow"
-						style="border: 0px solid #d2dde2; margin-top: 10px; margin-left: 10px; margin-bottom: 10px; width: 98%; overflow-x: scroll; overflow-y: auto; height:500px; ">
+						style="border: 0px solid #d2dde2; margin-top: 10px; margin-left: 10px; margin-bottom: 10px; width: 882px; overflow-x: scroll; overflow-y: auto; height:500px; ">
 					</div>
 				</table>
 				 <div class="center-buttons">
