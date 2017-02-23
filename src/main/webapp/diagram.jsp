@@ -32,7 +32,7 @@
 			businessId : "${businessId}", */
 				restore : eval("(" + process + ")"),
 				editable : false,
-				width:2000,
+				width:4000,
 				height:300
 			}, eval("(" + state + ")")));
 	}
