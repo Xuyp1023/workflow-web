@@ -43,18 +43,21 @@ public class WorkFlowDefinitionController {
     }
 
     @RequestMapping(value = "/queryWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryWorkFlowBase(final HttpServletRequest request, final long custNo, final int flag, final int pageNum,
-            final int pageSize) {
+    public @ResponseBody String queryWorkFlowBase(final HttpServletRequest request, final long custNo, final int flag,
+            final int pageNum, final int pageSize) {
         logger.info("查询公司拥有流程 custNo=" + custNo);
 
-        return exec(() -> workFlowDefinitionService.webQueryWorkFlowBase(custNo, flag, pageNum, pageSize), "查询流程定义列表失败！", logger);
+        return exec(() -> workFlowDefinitionService.webQueryWorkFlowBase(custNo, flag, pageNum, pageSize),
+                "查询流程定义列表失败！", logger);
     }
 
     @RequestMapping(value = "/queryHistoryWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryHistoryWorkFlowBase(final HttpServletRequest request, final long custNo, final String workFlowName) {
+    public @ResponseBody String queryHistoryWorkFlowBase(final HttpServletRequest request, final long custNo,
+            final String workFlowName) {
         logger.info("查询公司拥有流程 custNo=" + custNo + " workFlowName=" + workFlowName);
 
-        return exec(() -> workFlowDefinitionService.webQueryHistoryWorkFlowBase(custNo, workFlowName), "查询流程定义列表失败！", logger);
+        return exec(() -> workFlowDefinitionService.webQueryHistoryWorkFlowBase(custNo, workFlowName), "查询流程定义列表失败！",
+                logger);
     }
 
     @RequestMapping(value = "/findWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
@@ -93,52 +96,63 @@ public class WorkFlowDefinitionController {
     }
 
     @RequestMapping(value = "/addWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addWorkFlowBase(final HttpServletRequest request, final long defaultBaseId, final long custNo, final String nickname) {
+    public @ResponseBody String addWorkFlowBase(final HttpServletRequest request, final long defaultBaseId,
+            final long custNo, final String nickname) {
         logger.info("添加流程");
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
-        return exec(() -> workFlowDefinitionService.webAddWorkFlowBase(param, defaultBaseId, custNo, nickname), "添加流程失败！", logger);
+        return exec(() -> workFlowDefinitionService.webAddWorkFlowBase(param, defaultBaseId, custNo, nickname),
+                "添加流程失败！", logger);
     }
 
     @RequestMapping(value = "/addNewVersionWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addNewVersionWorkFlowBase(final HttpServletRequest request, final String workFlowName, final long custNo) {
+    public @ResponseBody String addNewVersionWorkFlowBase(final HttpServletRequest request, final String workFlowName,
+            final long custNo) {
         logger.info("添加流程");
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
-        return exec(() -> workFlowDefinitionService.webAddNewVersionWorkFlowBase(workFlowName, custNo), "添加流程失败！", logger);
+        return exec(() -> workFlowDefinitionService.webAddNewVersionWorkFlowBase(workFlowName, custNo), "添加流程失败！",
+                logger);
     }
 
-
     @RequestMapping(value = "/saveWorkFlowBase", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveWorkFlowBase(final HttpServletRequest request, final long baseId, final String nickname) {
+    public @ResponseBody String saveWorkFlowBase(final HttpServletRequest request, final long baseId,
+            final String nickname) {
         logger.info("修改流程");
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         return exec(() -> workFlowDefinitionService.webSaveWorkFlowBase(param, baseId, nickname), "修改流程失败！", logger);
     }
 
     @RequestMapping(value = "/addWorkFlowStep", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId, final String nickname) {
+    public @ResponseBody String addWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId,
+            final String nickname) {
         logger.info("添加流程审批步骤");
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
-        return exec(() -> workFlowDefinitionService.webAddWorkFlowStep(param, baseId, nodeId, nickname), "添加步骤失败！", logger);
+        return exec(() -> workFlowDefinitionService.webAddWorkFlowStep(param, baseId, nodeId, nickname), "添加步骤失败！",
+                logger);
     }
 
     @RequestMapping(value = "/saveWorkFlowStep", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId, final long stepId) {
+    public @ResponseBody String saveWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId,
+            final long stepId) {
         logger.info("修改流程审批步骤");
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
-        return exec(() -> workFlowDefinitionService.webSaveWorkFlowStep(param, baseId, nodeId, stepId), "修改步骤失败！", logger);
+        return exec(() -> workFlowDefinitionService.webSaveWorkFlowStep(param, baseId, nodeId, stepId), "修改步骤失败！",
+                logger);
     }
 
     @RequestMapping(value = "/delWorkFlowStep", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String delWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId, final long stepId) {
+    public @ResponseBody String delWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId,
+            final long stepId) {
         logger.info("删除流程审批步骤");
         return exec(() -> workFlowDefinitionService.webDelWorkFlowStep(baseId, nodeId, stepId), "删除步骤失败！", logger);
     }
 
     @RequestMapping(value = "/saveWorkFlowStepDefine", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveWorkFlowStepDefine(final HttpServletRequest request, final long baseId, final long nodeId, final long stepId) {
+    public @ResponseBody String saveWorkFlowStepDefine(final HttpServletRequest request, final long baseId,
+            final long nodeId, final long stepId) {
         logger.info("保存流程步骤定义");
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
-        return exec(() -> workFlowDefinitionService.webSaveWorkFlowStepDefine(param, baseId, nodeId, stepId), "保存流程步骤定义失败！", logger);
+        return exec(() -> workFlowDefinitionService.webSaveWorkFlowStepDefine(param, baseId, nodeId, stepId),
+                "保存流程步骤定义失败！", logger);
     }
 
     @RequestMapping(value = "/saveDisableWorkFlow", method = RequestMethod.POST, produces = "application/json")
@@ -154,13 +168,15 @@ public class WorkFlowDefinitionController {
     }
 
     @RequestMapping(value = "/saveDisableWorkFlowNode", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveDisableWorkFlowNode(final HttpServletRequest request, final long baseId, final long nodeId) {
+    public @ResponseBody String saveDisableWorkFlowNode(final HttpServletRequest request, final long baseId,
+            final long nodeId) {
         logger.info("停用流程节点");
         return exec(() -> workFlowDefinitionService.webSaveDisableWorkFlowNode(baseId, nodeId), "停用流程节点失败！", logger);
     }
 
     @RequestMapping(value = "/saveEnableWorkFlowNode", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveEnableWorkFlowNode(final HttpServletRequest request, final long baseId, final long nodeId) {
+    public @ResponseBody String saveEnableWorkFlowNode(final HttpServletRequest request, final long baseId,
+            final long nodeId) {
         logger.info("启用流程节点");
         return exec(() -> workFlowDefinitionService.webSaveEnableWorkFlowNode(baseId, nodeId), "启用流程节点失败！", logger);
     }
@@ -178,27 +194,34 @@ public class WorkFlowDefinitionController {
     }
 
     @RequestMapping(value = "/saveWorkFlowMoneySection", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveWorkFlowMoneySection(final HttpServletRequest request, final long baseId, final String moneySection) {
+    public @ResponseBody String saveWorkFlowMoneySection(final HttpServletRequest request, final long baseId,
+            final String moneySection) {
         logger.info("保存金额段");
-        return exec(() -> workFlowDefinitionService.webSaveWorkFlowMoneySection(baseId, moneySection), "保存金额段失败！", logger);
+        return exec(() -> workFlowDefinitionService.webSaveWorkFlowMoneySection(baseId, moneySection), "保存金额段失败！",
+                logger);
     }
 
     @RequestMapping(value = "/assigneeWorkFlowNodeOper", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String assigneeWorkFlowNodeOper(final HttpServletRequest request, final long baseId, final long nodeId, final long operId) {
+    public @ResponseBody String assigneeWorkFlowNodeOper(final HttpServletRequest request, final long baseId,
+            final long nodeId, final long operId) {
         logger.info("分配经办人");
-        return exec(() -> workFlowDefinitionService.webAssigneeWorkFlowNodeApprover(baseId, nodeId, operId), "分配经办人失败！", logger);
+        return exec(() -> workFlowDefinitionService.webAssigneeWorkFlowNodeApprover(baseId, nodeId, operId), "分配经办人失败！",
+                logger);
     }
 
     @RequestMapping(value = "/moveUpWorkFlowStep", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String moveUpWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId, final long stepId) {
+    public @ResponseBody String moveUpWorkFlowStep(final HttpServletRequest request, final long baseId,
+            final long nodeId, final long stepId) {
         logger.info("上移流程步骤");
         return exec(() -> workFlowDefinitionService.webMoveUpWorkFlowStep(baseId, nodeId, stepId), "上移流程步骤失败！", logger);
     }
 
     @RequestMapping(value = "/moveDownWorkFlowStep", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String moveDownWorkFlowStep(final HttpServletRequest request, final long baseId, final long nodeId, final long stepId) {
+    public @ResponseBody String moveDownWorkFlowStep(final HttpServletRequest request, final long baseId,
+            final long nodeId, final long stepId) {
         logger.info("下移流程步骤");
-        return exec(() -> workFlowDefinitionService.webMoveDownWorkFlowStep(baseId, nodeId, stepId), "下移流程步骤失败！", logger);
+        return exec(() -> workFlowDefinitionService.webMoveDownWorkFlowStep(baseId, nodeId, stepId), "下移流程步骤失败！",
+                logger);
     }
 
     @RequestMapping(value = "/queryWorkFlowMoney", method = RequestMethod.POST, produces = "application/json")
@@ -208,9 +231,11 @@ public class WorkFlowDefinitionController {
     }
 
     @RequestMapping(value = "/findWorkFlowStepDefine", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String findWorkFlowStepDefine(final HttpServletRequest request, final long baseId, final long nodeId, final long stepId) {
+    public @ResponseBody String findWorkFlowStepDefine(final HttpServletRequest request, final long baseId,
+            final long nodeId, final long stepId) {
         logger.info("查询流程定义");
-        return exec(() -> workFlowDefinitionService.webFindWorkFlowStepDefine(baseId, nodeId, stepId), "查询流程定义失败！", logger);
+        return exec(() -> workFlowDefinitionService.webFindWorkFlowStepDefine(baseId, nodeId, stepId), "查询流程定义失败！",
+                logger);
     }
 
 }

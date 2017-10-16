@@ -53,15 +53,16 @@ public class WorkFlowController {
     }
 
     @RequestMapping(value = "/queryMonitorTask", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryMonitorTask(final HttpServletRequest request, final long custNo, final int flag, final int pageNum,
-            final int pageSize) {
+    public @ResponseBody String queryMonitorTask(final HttpServletRequest request, final long custNo, final int flag,
+            final int pageNum, final int pageSize) {
         logger.debug("查询监控任务");
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         return exec(() -> workFlowService.webQueryMonitorTask(custNo, pageNum, pageSize, param), "查询监控任务失败", logger);
     }
 
     @RequestMapping(value = "/startWorkFlow", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String startWorkFlow(final HttpServletRequest request, final String workFlowName, final Long custNo) {
+    public @ResponseBody String startWorkFlow(final HttpServletRequest request, final String workFlowName,
+            final Long custNo) {
         logger.debug("启动流程 workFlowName=" + workFlowName + "  custNo=" + custNo);
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         return exec(() -> workFlowService.webStartWorkFlow(workFlowName, custNo, param), "启动流程失败", logger);
@@ -103,8 +104,8 @@ public class WorkFlowController {
     }
 
     @RequestMapping(value = "/queryAuditRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryAuditRecord(final HttpServletRequest request, final String businessId, final int flag, final int pageNum,
-            final int pageSize) {
+    public @ResponseBody String queryAuditRecord(final HttpServletRequest request, final String businessId,
+            final int flag, final int pageNum, final int pageSize) {
         logger.debug("查询审批记录");
         return exec(() -> workFlowService.webQueryAudit(businessId, flag, pageNum, pageSize), "查询审批记录失败", logger);
     }
@@ -118,31 +119,32 @@ public class WorkFlowController {
     /**
      * 显示流程图
      */
-    @RequestMapping(value = "/webFindFlowJson",method={RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/webFindFlowJson", method = { RequestMethod.GET, RequestMethod.POST })
     public @ResponseBody String webFindFlowJson(final HttpServletRequest request) {
         final String processId = request.getParameter("processId");
         final String orderId = request.getParameter("orderId");
-        logger.info("显示流程图入参 processId="+ processId +", orderId="+orderId);
+        logger.info("显示流程图入参 processId=" + processId + ", orderId=" + orderId);
         return exec(() -> workFlowService.webFindWorkFlowJson(processId, orderId), "查询流程图失败", logger);
     }
 
     /**
      * 更改操作员
      */
-    @RequestMapping(value = "/webChangeApprover",method={RequestMethod.GET,RequestMethod.POST})
-    public @ResponseBody String webChangeApprover(final HttpServletRequest request, final String taskId, final Long operId) {
-        logger.info("更改操作员入参 taskId="+ taskId +", operId="+operId);
+    @RequestMapping(value = "/webChangeApprover", method = { RequestMethod.GET, RequestMethod.POST })
+    public @ResponseBody String webChangeApprover(final HttpServletRequest request, final String taskId,
+            final Long operId) {
+        logger.info("更改操作员入参 taskId=" + taskId + ", operId=" + operId);
         return exec(() -> workFlowService.webChangeApprover(taskId, operId), "更改操作员失败", logger);
     }
 
     /**
      * 显示活动节点  TODO  TODO  TODO
      */
-    @RequestMapping(value = "/webFindTipsJson",method={RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/webFindTipsJson", method = { RequestMethod.GET, RequestMethod.POST })
     public @ResponseBody String webFindTipsJson(final HttpServletRequest request) {
         final String processId = request.getParameter("processId");
         final String orderId = request.getParameter("orderId");
-        logger.info("显示流程图入参 processId="+ processId +", orderId="+orderId);
+        logger.info("显示流程图入参 processId=" + processId + ", orderId=" + orderId);
         return exec(() -> workFlowService.webFindWorkFlowJson(processId, orderId), "查询流程图失败", logger);
     }
 
@@ -154,7 +156,8 @@ public class WorkFlowController {
      * @return
      */
     @RequestMapping(value = "/displayDiagram")
-    public String displayDiagram(final Model model, final String processId, final String businessId, final String orderId){
+    public String displayDiagram(final Model model, final String processId, final String businessId,
+            final String orderId) {
         model.addAttribute("processId", processId);
         model.addAttribute("businessId", businessId);
         model.addAttribute("orderId", orderId);
